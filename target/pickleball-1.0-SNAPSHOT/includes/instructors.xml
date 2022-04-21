@@ -1,0 +1,20 @@
+<instructors>
+	<instructor>
+		<name>Jessica Rocquet</name>
+		<profile>Jessica is a two time league champion in heer spare time.  She is a full time Science Teacher.</profile>
+		<skill_level>3.5</skill_level>
+		<teaches_levels>Beginner</teaches_levels>
+	</instructor>
+	<instructor>
+		<name>Luke Paden</name>
+		<profile>Luke has been playing the sport for 15 years. He is a retired pharmacist.</profile>
+		<skill_level>4</skill_level>
+		<teaches_levels>Intermediate</teaches_levels>
+	</instructor>
+	<instructor>
+		<name>Martin Castle</name>
+		<profile>Martin as been playing for 20 years. </profile>
+		<skill_level>4.5</skill_level>
+		<teaches_levels>All</teaches_levels>
+	</instructor>		
+</instructors>

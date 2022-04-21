@@ -6,11 +6,11 @@
 
 
     <error-page>
-        <location>/errors/error_404.jsp</location>
+        <location>/error_404.jsp</location>
         <error-code>404</error-code>
     </error-page>
-<!--    <error-page>
-        <location>/errors/error_500.jsp</location>
+    <error-page>
+        <location>/error_500.jsp</location>
         <error-code>500</error-code>
-    </error-page>-->
+    </error-page>
 </web-app>
