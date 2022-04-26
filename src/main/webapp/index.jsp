@@ -30,13 +30,13 @@
                 </a>
             </li>
             <li class="tm-nav-item">
-                <a href="index.jsp" data-effect="mfp-move-from-top" class="tm-nav-link" >
+                <a href="teams.jsp" data-effect="mfp-move-from-top" class="tm-nav-link" >
                     Teams
                     <i>insert picture here</i>
                 </a>
             </li>
             <li class="tm-nav-item">
-                <a href="teams.jsp" data-effect="mfp-move-from-top" class="tm-nav-link">
+                <a href="index.jsp" data-effect="mfp-move-from-top" class="tm-nav-link">
                     Match Schedule
                     <i class=>insert picture here</i>
                 </a>

@@ -6,7 +6,9 @@
 <%@ page import="org.xml.sax.SAXException" %>
 <%@ page import="org.w3c.dom.NodeList" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %><%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="models.InstructorModel" %>
+<%--
   Created by IntelliJ IDEA.
   User: kenis
   Date: 4/20/2022
@@ -70,6 +72,7 @@
     List<String> profiles = new ArrayList<String>();
     List<String> skills = new ArrayList<String>();
     List<String> teaches = new ArrayList<String>();
+    List<InstructorModel> instlist = new ArrayList<>();
 
 //    populate list of teachers and their info
     if (teachers != null) {
@@ -84,16 +87,28 @@
     profiles.add(profilesnodes.item(i).getFirstChild().getNodeValue());
     skills.add(skillsnodes.item(i).getFirstChild().getNodeValue());
     teaches.add(teachesnodes.item(i).getFirstChild().getNodeValue());
-    }
-
-    }
-    int i=1;
-    for(String instructor:instructors){
+//    InstructorModel instructorModel = new InstructorModel(instructors.get(i), profiles.get(i), skills.get(i), teaches.get(i));
+//    instlist.add(instructorModel);
   %>
-    <%=instructor%><br/>
+    <h3 style="color: blue">  <%= instructors.get(i) %> </h3>
+    <strong>About: </strong> <%= profiles.get(i) %><br/>
+    <strong>Personal Skill Level: </strong> <%= skills.get(i) %><br/>
+    <strong>Teaches level(s): </strong><%= teaches.get(i) %><br/>
 
-<% }
-    %>
+
+    <%
+    }
+
+    }
+  %>
+<%--    <c:forEach var="each_instructor" items="${instlist}">
+      <h3>${each_instructor.Name}</h3><br/>
+       ${each_instructor.getProfile()}<br/>
+       ${each_instructor.getSkill_level()}<br/>
+       ${each_instructor.getTeaches_levels()}<br/><br/>
+    </c:forEach>--%>
+
+
 </div>
 </body>
 </html>
