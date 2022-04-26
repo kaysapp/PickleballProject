@@ -13,27 +13,27 @@ This project uses HTML as well as JSP and XML that has been learned during the c
 ### MVC Components
 
 #### Models
--**User** - person who wants to take a pickleball lesson or join a team
--**Instructor** - Lesson instructors
--**Class** - Pickleball lessons (dates, times, instructors)
--**Match** - Pickleball match schedule
+- **User** - person who wants to take a pickleball lesson or join a team
+- **Instructor** - Lesson instructors
+- **Class** - Pickleball lessons (dates, times, instructors)
+- **Match** - Pickleball match schedule
 
 #### Views
 The views created are centered around interest areas for site visitors
--Welcome Page
--About the group
--Learn to play
--Sign up (into group)
--Join a team
--Upcoming Matches
--Admin
+- Welcome Page
+- About the group
+- Learn to play
+- Sign up (into group)
+- Join a team
+- Upcoming Matches
+- Admin
 
 #### Controllers
 The controllers manage the appearance and retrieval of site info
--**Login** - called when someone plans to sign up for a class.  Most page users do not need to sign in
--**Signup for group** - If a person is new, they need to create a username and password
--**Show classes** - Fetches upcoming classes from database.
--**Signup for specific class** - Adds session user to list of students in a specific class
+- **Login** - called when someone plans to sign up for a class.  Most page users do not need to sign in
+- **Signup for group** - If a person is new, they need to create a username and password
+- **Show classes** - Fetches upcoming classes from database.
+- **Signup for specific class** - Adds session user to list of students in a specific class
 
 
 
