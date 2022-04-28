@@ -1,3 +1,4 @@
+<%@ page import="models.UserModel" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="/includes/pheader.html" %>
 <!DOCTYPE html>
@@ -10,6 +11,19 @@
 <h1><%= "Neighborhood Pickleball" %>
 </h1>
 <br/>
+<div>
+    <%
+        //    if (request.getSession() != null) {
+        if(session.getAttribute("user") != null) {
+            UserModel user = (UserModel) session.getAttribute("user");
+    %>
+    <p>Hello, <%= user.getName() %></p>
+    <p> <a href="LogoutServlet">Logout</a> </p>
+    <br/>
+    <br/>
+    <br/>
+    <% }%>
+</div>
 <div>
 <p>Welcome to our Neighborhood Pickleball site.
     Visit the links below to learn about the group, get started by taking lessons, or to view the game schedule.</p>

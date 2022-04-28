@@ -1,14 +1,18 @@
 package services;
 
+import models.ClassModel;
 import models.InstructorModel;
+import models.TeamsModel;
 import models.UserModel;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.System.out;
+
 public class MySQLdb {
-    String url = "jdbc:mysql://localhost:3306/library_catalog";
+    String url = "jdbc:mysql://localhost:3306/pickleball";
     String username = "root";
     String password = "COMP6000p@ss";
     Connection connection = null;
@@ -33,7 +37,6 @@ public class MySQLdb {
 
     public UserModel doLogin(String userid, String password) throws SQLException {
         UserModel userModel = null;
-
         // PreparedStatement
 
         String qLogin = "SELECT * FROM members WHERE username = ? AND password = ?";
@@ -42,13 +45,12 @@ public class MySQLdb {
         preparedStatement.setString(2, password);
         ResultSet resultSet = preparedStatement.executeQuery();
 
-
         if(resultSet.next()) {
-            String name = resultSet.getString("name");
+            String name = resultSet.getString("member_name");
             String pass = resultSet.getString("password");
             int uid = resultSet.getInt("user_id");
 
-            userModel = new UserModel(uid,userid,name,pass);
+            userModel = new UserModel(uid,name,username,pass);
         }
         resultSet.close();
  //       statement.close();
@@ -57,24 +59,42 @@ public class MySQLdb {
 
     }
 
-   /* public List<BookModel> fetchBooks(int authorid) throws SQLException {
-        String qGetBooks = null;
-        List<BookModel> list = new ArrayList<>();
-        if(authorid == 999) {
-            qGetBooks = "SELECT A.author_name, B.book_name, B.book_id, A.author_id FROM authors as A, books as B WHERE A.author_id = B.author_id";
-        } else {
-            qGetBooks = "SELECT A.author_name, B.book_name, B.book_id, A.author_id FROM authors as A, books as B WHERE A.author_id = B.author_id AND A.author_id = '"+authorid+"'";
+    public Boolean doSignup(String uname, String fullname, String pass) throws SQLException {
+        Boolean signup = false;
+        String qDoReserve = "INSERT INTO members(member_name,username,password) VALUES(?, ?, ?)";
+        PreparedStatement preparedStatement = connection.prepareStatement(qDoReserve);
+        preparedStatement.setString(1, fullname);
+        preparedStatement.setString(2, uname);
+        preparedStatement.setString(3, pass);
+        int rows_update = preparedStatement.executeUpdate();
+        if(rows_update > 0) {
+            signup = true;
         }
-        PreparedStatement preparedStatement = connection.prepareStatement(qGetBooks);
+        preparedStatement.close();
+        return signup;
+    }
+
+    public List<ClassModel> fetchClasses(String teacher) throws SQLException {
+        String qGetClass = null;
+        List<ClassModel> list = new ArrayList<>();
+        if(teacher == "all") {
+            out.println("executing query for all");
+            qGetClass = "SELECT * FROM lessons WHERE date >= CURRENT_DATE ";
+        } else {
+            qGetClass = "SELECT * FROM lessons WHERE date >= CURRENT_DATE AND instructor = '"+teacher+"'";
+        }
+        PreparedStatement preparedStatement = connection.prepareStatement(qGetClass);
         ResultSet resultSet = preparedStatement.executeQuery();
         while(resultSet.next()) {
-            int book_id = resultSet.getInt("book_id");
-            int author_id = resultSet.getInt("author_id");
-            String book_name = resultSet.getString("book_name");
-            String author_name = resultSet.getString("author_name");
-            BookModel bookModel = new BookModel(book_id, author_id, book_name, author_name);
+//            out.println("executing while statement");
+            String class_date = resultSet.getString("date");
+            String class_time= resultSet.getString("time");
+//            String instructor2 = resultSet.getString("instructor");
+            String instructor2 = "nobody";
+            String level = resultSet.getString("level");
+            ClassModel classModel = new ClassModel(class_date, class_time, instructor2, level);
 
-            list.add(bookModel);
+            list.add(classModel);
         }
         resultSet.close();
         preparedStatement.close();
@@ -82,22 +102,44 @@ public class MySQLdb {
         return list;
     }
 
-    public List<BookModel> getReservedBooks(int userid) throws SQLException {
-        List<BookModel> list = new ArrayList<>();
-        String qGetReserved = "SELECT B.book_id, A.author_id, B.book_name, A.author_name FROM books as B, authors as A, reservations as R WHERE R.book_id = B.book_id AND B.author_id = A.author_id AND R.user_id = '"+userid+"'";
-        PreparedStatement preparedStatement = connection.prepareStatement(qGetReserved);
+    public List<TeamsModel> fetchTeams(String t_type) throws SQLException {
+        String qGetTeams = null;
+        List<TeamsModel> list = new ArrayList<>();
+        if(t_type == "all") {
+            qGetTeams = "SELECT team_name, team_type FROM teams";
+        } else {
+            qGetTeams = "SELECT team_name, team_type FROM teams WHERE team_type = '"+t_type+"'";
+        }
+        PreparedStatement preparedStatement = connection.prepareStatement(qGetTeams);
         ResultSet resultSet = preparedStatement.executeQuery();
         while(resultSet.next()) {
-            int author_id = resultSet.getInt("author_id");
-            String author_name = resultSet.getString("author_name");
-            int book_id = resultSet.getInt("book_id");
-            String book_name = resultSet.getString("book_name");
-            BookModel bookModel = new BookModel(book_id, author_id, book_name, author_name);
-            list.add(bookModel);
+            String team_name = resultSet.getString("team_name");
+            String team_type = resultSet.getString("team_type");
+
+            TeamsModel teamsModel = new TeamsModel(team_name, team_type);
+            list.add(teamsModel);
         }
         resultSet.close();
         preparedStatement.close();
         return list;
-    }*/
+    }
+    public List<String> fetchTeamMembers(String t_name) throws SQLException {
+        String qGetTeamMembers = null;
+        List<String> list = new ArrayList<>();
+        if(t_name == "all") {
+            qGetTeamMembers = "SELECT member_name FROM teams";
+        } else {
+            qGetTeamMembers = "SELECT member_name FROM teams WHERE team_name = '"+t_name+"'";
+        }
+        PreparedStatement preparedStatement = connection.prepareStatement(qGetTeamMembers);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while(resultSet.next()) {
+            String team_name = resultSet.getString("team_name");
+            list.add(team_name);
+        }
+        resultSet.close();
+        preparedStatement.close();
+        return list;
+    }
 
 }

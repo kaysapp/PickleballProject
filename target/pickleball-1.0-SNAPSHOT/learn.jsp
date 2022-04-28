@@ -8,6 +8,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="models.InstructorModel" %>
+<%@ page import="models.TeamsModel" %>
 <%--
   Created by IntelliJ IDEA.
   User: kenis
@@ -16,6 +17,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="/includes/pheader.html" %>
 <html>
 <head>
   <title>About Us</title>
@@ -35,6 +37,8 @@
       <li>Advanced is level 4.0 - 4.5</li>
     </ul>
   <br/>
+</div>
+<div id="instructors">
   <h2>Our Instructors:</h2>
   <br/>
 
@@ -110,5 +114,42 @@
 
 
 </div>
+<%
+    List<String> list_of_levels = new ArrayList<String>();
+    list_of_levels.add("person1");
+    list_of_levels.add("person2");
+    list_of_levels.add("person3");
+%>
+<div id="classes">
+    <h2>Upcoming classes:</h2>
+    <a href="ClassesServlet">List Classes</a>
+    <form action="ClassesServlet" method="post">
+        Filter Classes:
+        <select name="instructor">
+          <option value="all">All</option>
+        </select>
+        <input type="submit" value="Filter" />
+    </form>
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Instructor</th>
+            <th>Level</th>
+            <th>Action</th>
+        </tr>
+        <c:forEach var="each_class" items="${list_of_classes}">
+            <tr>
+                <td>${each_class.getClass_date()}</td>
+                <td>${each_class.getClass_time()}</td>
+                <td>${each_class.getInstructor()}</td>
+                <td>${each_class.getLevel()}</td>
+<%--                <td><a href="RegisterServlet${each_book.getBook_id()}">Reserve</a></td>--%>
+            </tr>
+        </c:forEach>
+    </table>
+
+</div>
+
 </body>
 </html>
