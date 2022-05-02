@@ -1,6 +1,5 @@
 package servlets;
 
-import models.ClassModel;
 import models.TeamsModel;
 import services.MySQLdb;
 

@@ -1,0 +1,37 @@
+<matches>
+   <match matchID="match101">
+      <match_date>05-20-2022</match_date>
+      <location>Chadwick</location>
+      <court>1</court>
+      <team1>Pickleballers</team1>
+      <team2>Aces</team2>
+   </match>
+   <match matchID="match102">
+      <match_date>05-20-2022</match_date>
+      <location>Chadwick</location>
+      <court>2</court>
+      <team1>Nets</team1>
+      <team2>Dinkers</team2>
+   </match>
+   <match matchID="match103">
+      <match_date>05-27-2022</match_date>
+      <location>Chadwick</location>
+      <court>2</court>
+      <team1>Unstoppables</team1>
+      <team2>Pickles</team2>      
+   </match>
+   <match matchID="match201">
+      <match_date>05-27-2022</match_date>
+      <location>Windgate</location>
+      <court>1</court>
+      <team1>Dinkers</team1>
+      <team2>Unstoppables</team2>
+   </match>
+   <match matchID="match202">
+      <match_date>05-30-2022</match_date>
+      <location>Windgate</location>
+      <court>1</court>
+      <team1>Pickleballers</team1>
+      <team2>Nets</team2>
+   </match>
+</matches>

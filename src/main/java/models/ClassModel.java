@@ -1,16 +1,23 @@
 package models;
 
-import java.util.Date;
-
 public class ClassModel {
+    int class_id;
+    String class_date, class_time, class_instructor, class_level;
 
-    String class_date, class_time, instructor, level;
-
-    public ClassModel(String class_date, String class_time, String instructor, String level) {
+    public ClassModel(int class_id, String class_date, String class_time, String class_instructor, String class_level) {
+        this.class_id = class_id;
         this.class_date = class_date;
         this.class_time = class_time;
-        this.instructor = instructor;
-        this.level = level;
+        this.class_instructor = class_instructor;
+        this.class_level = class_level;
+    }
+
+    public int getClass_id() {
+        return class_id;
+    }
+
+    public void setClass_id(int class_id) {
+        this.class_id = class_id;
     }
 
     public String getClass_date() {
@@ -29,19 +36,19 @@ public class ClassModel {
         this.class_time = class_time;
     }
 
-    public String getInstructor() {
-        return instructor;
+    public String getClass_instructor() {
+        return class_instructor;
     }
 
-    public void setInstructor(String instructor) {
-        this.instructor = instructor;
+    public void setClass_instructor(String class_instructor) {
+        this.class_instructor = class_instructor;
     }
 
-    public String getLevel() {
-        return level;
+    public String getClass_level() {
+        return class_level;
     }
 
-    public void setLevel(String level) {
-        this.level = level;
+    public void setClass_level(String class_level) {
+        this.class_level = class_level;
     }
 }

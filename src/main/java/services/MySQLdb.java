@@ -1,13 +1,13 @@
 package services;
 
 import models.ClassModel;
-import models.InstructorModel;
 import models.TeamsModel;
 import models.UserModel;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static java.lang.System.out;
 
@@ -74,25 +74,23 @@ public class MySQLdb {
         return signup;
     }
 
-    public List<ClassModel> fetchClasses(String teacher) throws SQLException {
+    public List<ClassModel> fetchClasses(String c_level) throws SQLException {
         String qGetClass = null;
         List<ClassModel> list = new ArrayList<>();
-        if(teacher == "all") {
-            out.println("executing query for all");
-            qGetClass = "SELECT * FROM lessons WHERE date >= CURRENT_DATE ";
+        if(Objects.equals(c_level, "all")) {
+            qGetClass = "SELECT * FROM lessons WHERE class_date >= CURRENT_DATE ";
         } else {
-            qGetClass = "SELECT * FROM lessons WHERE date >= CURRENT_DATE AND instructor = '"+teacher+"'";
+            qGetClass = "SELECT * FROM lessons WHERE class_date >= CURRENT_DATE AND level = '"+c_level+"'";
         }
         PreparedStatement preparedStatement = connection.prepareStatement(qGetClass);
         ResultSet resultSet = preparedStatement.executeQuery();
         while(resultSet.next()) {
-//            out.println("executing while statement");
-            String class_date = resultSet.getString("date");
-            String class_time= resultSet.getString("time");
-//            String instructor2 = resultSet.getString("instructor");
-            String instructor2 = "nobody";
+            int class_id = resultSet.getInt("class_id");
+            String class_date = resultSet.getString("class_date");
+            String class_time= resultSet.getString("class_time");
+            String instructor2 = resultSet.getString("instructor");
             String level = resultSet.getString("level");
-            ClassModel classModel = new ClassModel(class_date, class_time, instructor2, level);
+            ClassModel classModel = new ClassModel(class_id, class_date, class_time, instructor2, level);
 
             list.add(classModel);
         }
@@ -101,6 +99,48 @@ public class MySQLdb {
 
         return list;
     }
+    public List<String> fetchLevels(String t_name) throws SQLException {
+        String qGetLevels = null;
+        List<String> list = new ArrayList<>();
+        qGetLevels = "SELECT  distinct level FROM lessons";
+        PreparedStatement preparedStatement = connection.prepareStatement(qGetLevels);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while(resultSet.next()) {
+            String level_name = resultSet.getString("level");
+            list.add(level_name);
+        }
+        resultSet.close();
+        preparedStatement.close();
+        return list;
+    }
+    public boolean doReserve(int userid, int class_id) throws SQLException {
+        boolean result = false;
+        List<String> list = new ArrayList<>();
+        String qGetStudName = "SELECT member_name FROM members WHERE user_id ='"+userid+"'";
+        String qDoReserve = "INSERT INTO enrollment(class_id, student_id, student_name) VALUES(?, ?, ?)";
+        //find student name to add to enrollment
+        PreparedStatement preparedStatement = connection.prepareStatement(qGetStudName);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while(resultSet.next()) {
+            String member_name = resultSet.getString("member_name");
+            list.add(member_name);
+        }
+        String student_name = list.get(0);
+        out.println("Student name "+ student_name);
+        resultSet.close();
+        preparedStatement.close();
+        //new sql to add all fields to enrollment table
+        PreparedStatement preparedStatement2 = connection.prepareStatement(qDoReserve);
+        preparedStatement2.setInt(1, class_id);
+        preparedStatement2.setInt(2, userid);
+        preparedStatement2.setString(3, student_name);
+        int rows_update = preparedStatement2.executeUpdate();
+        if(rows_update > 0) {
+            result = true;
+        }
+        preparedStatement2.close();
+        return result;
+    }
 
     public List<TeamsModel> fetchTeams(String t_type) throws SQLException {
         String qGetTeams = null;
@@ -108,7 +148,7 @@ public class MySQLdb {
         if(t_type == "all") {
             qGetTeams = "SELECT team_name, team_type FROM teams";
         } else {
-            qGetTeams = "SELECT team_name, team_type FROM teams WHERE team_type = '"+t_type+"'";
+            qGetTeams = "SELECT team_name, team_type FROM teams WHERE class_level = '"+t_type+"'";
         }
         PreparedStatement preparedStatement = connection.prepareStatement(qGetTeams);
         ResultSet resultSet = preparedStatement.executeQuery();

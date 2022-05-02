@@ -21,19 +21,23 @@ public class ClassesServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String teacher="all";
+        String teacher1="all";
+        String level = request.getParameter("level");
         HttpSession session = request.getSession();
         MySQLdb db = MySQLdb.getInstance();
         try {
-//            out.println(teacher);
-            List<ClassModel> classModelList = db.fetchClasses(teacher);
+            out.println(level);
+            List<String> classLevelList = db.fetchLevels(level);
+            request.setAttribute("list_of_levels", classLevelList);
+
+            List<ClassModel> classModelList = db.fetchClasses(level);
             request.setAttribute("list_of_classes", classModelList);
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("learn.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("classes.jsp");
         requestDispatcher.forward(request, response);
 
     }

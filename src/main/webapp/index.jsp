@@ -7,7 +7,7 @@
     <title>Pickleball</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/includes/css/ocean-vibes.css" />
 </head>
-<body style="margin:30;padding:30">
+<body style="margin:30px;padding:30px;">
 <h1><%= "Neighborhood Pickleball" %>
 </h1>
 <br/>
