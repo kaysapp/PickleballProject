@@ -7,15 +7,9 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.io.File" %>
-<%@ page import="models.MatchModel" %>
 <%@ page import="org.w3c.dom.Element" %>
 <%@ page import="org.w3c.dom.Node" %>
-  Created by IntelliJ IDEA.
-  User: kenis
-  Date: 5/1/2022
-  Time: 10:31 PM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="models.MatchModel" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/includes/pheader.html" %>
 <html>
@@ -42,6 +36,8 @@
         DocumentBuilder xdb = null;
         String path = application.getRealPath("/") +"includes/matches.xml";
         File path2 = new File(path);
+        List<MatchModel> list = new ArrayList<>();
+
 
         try {
             xdb = dbf.newDocumentBuilder();
@@ -57,31 +53,44 @@
             e.printStackTrace();
         }
 
-//    populate list of teachers and their info
-        if (matches != null) {
-            Element docEle = matches.getDocumentElement();
-            NodeList nl = docEle.getChildNodes();
-            List<MatchModel> list = new ArrayList<>();
+        NodeList match_dates = null;
+        NodeList locations = null;
+        NodeList courts = null;
+        NodeList team1s = null;
+        NodeList team2s = null;
 
-            int length = nl.getLength();
+        List<String> match_date = new ArrayList<String>();
+        List<String> location = new ArrayList<String>();
+        List<String> court = new ArrayList<String>();
+        List<String> team1 = new ArrayList<String>();
+        List<String> team2 = new ArrayList<String>();
+
+
+//    populate list of matches and their info
+        if (matches != null) {
+
+            match_dates = matches.getElementsByTagName("match_date");
+            locations = matches.getElementsByTagName("location");
+            courts = matches.getElementsByTagName("court");
+            team1s = matches.getElementsByTagName("team1");
+            team2s = matches.getElementsByTagName("team2");
+
+            int length = match_dates.getLength();
+
             //populate the list to parse later
             for (int i = 0; i < length; i++) {
-                if (nl.item(i).getNodeType() == Node.ELEMENT_NODE) {
-                    Element el = (Element) nl.item(i);
-                    String match_date = el.getElementsByTagName("match_date").item(0).getTextContent();
-                    String location = el.getElementsByTagName("location").item(0).getTextContent();
-                    String court = el.getElementsByTagName("court").item(0).getTextContent();
-                    String team1 = el.getElementsByTagName("team1").item(0).getTextContent();
-                    String team2 = el.getElementsByTagName("team2").item(0).getTextContent();
+                match_date.add(match_dates.item(i).getFirstChild().getNodeValue());
+                location.add(locations.item(i).getFirstChild().getNodeValue());
+                court.add(courts.item(i).getFirstChild().getNodeValue());
+                team1.add(team1s.item(i).getFirstChild().getNodeValue());
+                team2.add(team2s.item(i).getFirstChild().getNodeValue());
 
-                    MatchModel matchModel = new MatchModel(match_date, location, court, team1, team2);
-                    list.add(matchModel);
-                }
+                //MatchModel matchModel = new MatchModel(match_date, location, court, team1, team2);
+                //list.add(matchModel);
             }
 
-
-//    InstructorModel instructorModel = new InstructorModel(instructors.get(i), profiles.get(i), skills.get(i), teaches.get(i));
-//    instlist.add(instructorModel);
+            request.setAttribute("length",length);
+            request.setAttribute("list", list);
                 //stage 3 here
     %>
         <table>
@@ -92,18 +101,19 @@
                 <th>Team1</th>
                 <th>Team2</th>
             </tr>
-            <c:forEach var="each_match" items="${list}">
+<%--NEED HELP WITH THIS VARIABLE REFERENCE--%>
+  <%          for (int i = 0; i < length; i++) { %>
                 <tr>
-                    <td>${each_match.getMatch_date()}</td>
-                    <td>${each_match.getLocation()}</td>
-                    <td>${each_match.getCourt()}</td>
-                    <td>${each_match.getTeam1()}</td>
-                    <td>${each_match.getTeam2()}</td>
+                    <td> <%= match_date.get(i) %></td>
+                    <td> <%= location.get(i) %></td>
+                    <td> <%= court.get(i) %></td>
+                    <td> <%= team1.get(i) %></td>
+                    <td> <%= team2.get(i) %></td>
                 </tr>
-            </c:forEach>
+          <%  } %>
         </table>
-
     <%
+
         }
     %>
 

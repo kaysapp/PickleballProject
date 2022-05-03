@@ -50,4 +50,5 @@ public class MatchModel {
     public void setTeam2(String team2) {
         this.team2 = team2;
     }
+
 }
