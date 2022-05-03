@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Objects;
 
 import static java.lang.System.out;
 
@@ -40,10 +41,14 @@ public class LoginServlet extends HttpServlet {
         if (userModel != null) {
             HttpSession session = request.getSession();
             session.setAttribute("user", userModel);
-
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
-            requestDispatcher.forward(request, response);
-        } else {
+            if (Objects.equals(userModel.getUsertype(), "admin")) {
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("adminpage.jsp");
+                requestDispatcher.forward(request, response);
+            } else {
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
+                requestDispatcher.forward(request, response);
+            }
+        }else {
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
             request.setAttribute("error1", "Incorrect email or password. Please try again or Sign Up");
             requestDispatcher.forward(request, response);

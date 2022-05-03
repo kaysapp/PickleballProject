@@ -17,39 +17,41 @@
 <h2>Please log in or sign up to take classes or join a team</h2>
 
 <p>Existing Members, Please Log In:</p>
+<p style="color: red;">${adminerror}</p>
 <form action="LoginServlet" method="post" onsubmit="return validate()">
     Username: <input id="username" name="username" type="text" /> <br/>
     Password: <input id="password" name="password" type="password" /> <br/>
-    <input type="submit" name="Login" /> <br/> <br/>
+    <input type="submit" name="Login" value="Login" /> <br/> <br/>
     <span id="error_msg"></span>
 </form>
 <br/>
-<p>${error1}</p>
+<p style="color: red;">${error1}</p>
 <br/>
 <p>New Members, Please Sign Up:</p>
 <form action="SignupServlet" method="post" onsubmit="return validate2()">
-    First Name: <input id="name2" name="name2" type="text" /> <br/>
+    Full Name: <input id="name2" name="name2" type="text" /> <br/>
     Username: <input id="username2" name="username2" type="text" /> <br/>
     Password: <input id="password2" name="password2" type="password" /> <br/>
     Re-enter Password: <input id="password3" name="password3" type="password" /> <br/>
-    <input type="submit" name="SignUp" /> <br/> </br>
+    <input type="submit" name="SignUp" value="Sign Up" /> <br/> </br>
     <span id="error_msg2"></span>
 </form>
 
-<p>${error}</p>
+<p style="color: red;">${error}</p>
 
 
 </body>
 <script>
     function validate() {
         var password = document.getElementById("password").value
-        if(password === "") {
+        if (password === "") {
             document.getElementById("error_msg").innerHTML = "Please enter password."
             result = false
-        } else if(username === "") {
+        } else if (username === "") {
             document.getElementById("error_msg2").innerHTML = "Please enter username."
             result = false
-        return result
+            return result
+        }
     }
     function validate2() {
         var name2 = document.getElementById("name2").value

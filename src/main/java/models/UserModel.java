@@ -2,11 +2,12 @@ package models;
 
 public class UserModel {
     int user_id;
-    String name, username, password;
+    String name, usertype, username, password;
 
-    public UserModel(int user_id, String name, String username, String password) {
+    public UserModel(int user_id, String name, String usertype, String username, String password) {
         this.user_id = user_id;
         this.name = name;
+        this.usertype = usertype;
         this.username = username;
         this.password = password;
     }
@@ -25,6 +26,14 @@ public class UserModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getUsertype() {
+        return usertype;
+    }
+
+    public void setUsertype(String usertype) {
+        this.usertype = usertype;
     }
 
     public String getUsername() {

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="models.UserModel" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="/includes/pheader.html" %>
@@ -7,7 +8,7 @@
     <title>Pickleball</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/includes/css/ocean-vibes.css" />
 </head>
-<body style="margin:30px;padding:30px;">
+<body>
 <h1><%= "Neighborhood Pickleball" %>
 </h1>
 <br/>
@@ -25,32 +26,32 @@
     <% }%>
 </div>
 <div>
-<p>Welcome to our Neighborhood Pickleball site.
-    Visit the links below to learn about the group, get started by taking lessons, or to view the game schedule.</p>
+    <p>Welcome to our Neighborhood Pickleball site.
+        Visit the links below to learn about the group, get started by taking lessons, or to view the game schedule.</p>
 </div>
-    <div class="tm-container">
+<div class="tm-container">
     <nav class="tm-main-nav">
         <ul id="inline-popups">
             <li class="tm-nav-item">
-                <a href="aboutus.jsp" data-effect="mfp-move-from-top" class="tm-nav-link">
+                <a href="aboutus.jsp" class="tm-nav-link">
                     About Us
                     <i>insert picture here</i>
                 </a>
             </li>
             <li class="tm-nav-item">
-                <a href="learn.jsp" data-effect="mfp-move-from-top" class="tm-nav-link">
+                <a href="learn.jsp" class="tm-nav-link">
                     Learn to Play
                     <i>insert picture here</i>
                 </a>
             </li>
             <li class="tm-nav-item">
-                <a href="teams.jsp" data-effect="mfp-move-from-top" class="tm-nav-link" >
+                <a href="teams.jsp" class="tm-nav-link" >
                     Teams
                     <i>insert picture here</i>
                 </a>
             </li>
             <li class="tm-nav-item">
-                <a href="index.jsp" data-effect="mfp-move-from-top" class="tm-nav-link">
+                <a href="index.jsp" class="tm-nav-link">
                     Match Schedule
                     <i class=>insert picture here</i>
                 </a>
@@ -59,6 +60,8 @@
         </ul>
     </nav>
 </div>
-
 </body>
+<footer>
+    <c:import url="/includes/pfooter.html" />
+</footer>
 </html>

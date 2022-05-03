@@ -31,12 +31,12 @@ public class EnrollServlet extends HttpServlet {
                     boolean result = db.doReserve(user.getUser_id(), class_id);
 
                     if(result) {
-                        out.println("enrolling");
+//                        out.println("enrolling");
                         RequestDispatcher requestDispatcher = request.getRequestDispatcher("classes.jsp");
                         request.setAttribute("message", "You are enrolled.!");
                         requestDispatcher.forward(request, response);
                     } else {
-                        out.println("not enrolling");
+//                        out.println("not enrolling");
                         RequestDispatcher requestDispatcher = request.getRequestDispatcher("classes.jsp");
                         request.setAttribute("message", "Something went wrong! Did not get true result.!");
                         requestDispatcher.forward(request, response);

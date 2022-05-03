@@ -24,7 +24,7 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/includes/css/ocean-vibes.css" />
 </head>
 <body>
-h1><%= "About our Neighborhood Pickleball" %>
+<h1><%= "About our Neighborhood Pickleball" %>
 </h1>
 </head>
 <br/>
@@ -120,8 +120,7 @@ h1><%= "About our Neighborhood Pickleball" %>
 </div>
 
 <div id="classes">
-    <h2>Upcoming classes:</h2>
-    <a href="ClassesServlet">List Upcoming Classes</a>
+    <h3><a href="ClassesServlet">Click here to find Upcoming Classes</a></h3>
 </div>
 
 </body>

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/includes/css/ocean-vibes.css" />
 </head>
 <body>
-<h3>Sign Up for an Upcoming Class</h3>
+<h2>Sign Up for an Upcoming Class</h2>
 
 <%
 //    if (request.getSession() != null) {
@@ -23,9 +23,6 @@
 <br/>
     <% }%>
 
-<div id="classes">
-    <h2>Upcoming classes:</h2>
-</div>
 <form action="ClassesServlet" method="post">
     Select Class Level:
     <label>
@@ -40,13 +37,17 @@
 </form>
 <br/>
 <br/>
-<table>
+<p>${message}</p>
+<p>${error}</p>
+<div id="classes">
+    <h2>Upcoming classes:</h2>
+<table style="width:70%; margin-left: auto; margin-right: auto; border: 1px; border-collapse: collapse;">
     <tr>
-        <th>Date</th>
-        <th>Time</th>
-        <th>Instructor Name</th>
-        <th>Level</th>
-        <th>Action</th>
+        <th style="text-align:left; width:15%;">Date</th>
+        <th style="text-align:left; width:15%;">Time</th>
+        <th style="text-align:left; width:35%;">Instructor Name</th>
+        <th style="text-align:left; width:20%;">Level</th>
+        <th style="text-align:left; width:15%;">Action</th>
     </tr>
     <c:forEach var="each_class" items="${list_of_classes}">
         <tr>
@@ -58,10 +59,9 @@
         </tr>
     </c:forEach>
 </table>
+</div>
 <br/>
 <br/>
-<p>${message}</p>
-<p>${error}</p>
 
 
 
@@ -80,4 +80,7 @@
 
 
 </body>
+<footer>
+    <c:import url="/includes/pfooter.html" />
+</footer>
 </html>

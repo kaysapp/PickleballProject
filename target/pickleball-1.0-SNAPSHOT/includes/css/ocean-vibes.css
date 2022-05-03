@@ -10,7 +10,7 @@ html { overflow-x: hidden; }
 
 body {
     font-family: 'Source Sans Pro', sans-serif;
-    font-size: 19px;
+    font-size: 14px;
     line-height: 1.8em;
     overflow-x: hidden;
 }
@@ -21,11 +21,21 @@ h1 {
     font-size: 3rem;
     margin-left: 30;
 }
-h2, p {
+h2 {
     margin-top: 0;
     text-align:center;
 }
-
+.colhead {
+    text-align: center;
+    color: black;
+    background: #3085a3;
+    width: 25%;
+}
+.tablefmt {
+    width: 70%;
+    margin-left:auto;
+    margin-right:auto;
+}
 a:hover, a.active { color: #309AFD; }
 
 .tm-btn {
@@ -84,7 +94,7 @@ a {
 .kc-top-bar{
     text-align:right;
     margin-right:30px;
-    color: #848586;
+    color: white;
 }
 .tm-mt-0 { margin-top: 0; }
 
@@ -153,10 +163,11 @@ a {
 }
 
 .tm-container {
-    max-width: 1254px;
+    max-width: 800px;
     padding-left: 15px;
     padding-right: 15px;
-    margin: 0 auto 135px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .tm-footer {

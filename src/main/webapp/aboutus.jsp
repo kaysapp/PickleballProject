@@ -17,5 +17,7 @@ Our courts are available for recreational use and for those who would like to co
 <p>For beginners and those who want to improve their skills, we offer lessons by experienced players.</p>
 <p>Those who are ready to play in a match can sign up.  Check our upcoming match schedule.</p>
 </body>
-
+<footer>
+    <c:import url="/includes/pfooter.html" />
+</footer>
 </html>

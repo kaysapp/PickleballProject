@@ -21,12 +21,11 @@ public class ClassesServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String teacher1="all";
         String level = request.getParameter("level");
         HttpSession session = request.getSession();
         MySQLdb db = MySQLdb.getInstance();
         try {
-            out.println(level);
+//            out.println(level);
             List<String> classLevelList = db.fetchLevels(level);
             request.setAttribute("list_of_levels", classLevelList);
 

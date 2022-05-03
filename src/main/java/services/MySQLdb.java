@@ -47,10 +47,11 @@ public class MySQLdb {
 
         if(resultSet.next()) {
             String name = resultSet.getString("member_name");
+            String utype = resultSet.getString("member_type");
             String pass = resultSet.getString("password");
             int uid = resultSet.getInt("user_id");
 
-            userModel = new UserModel(uid,name,username,pass);
+            userModel = new UserModel(uid,name,utype,username,pass);
         }
         resultSet.close();
  //       statement.close();
@@ -126,7 +127,7 @@ public class MySQLdb {
             list.add(member_name);
         }
         String student_name = list.get(0);
-        out.println("Student name "+ student_name);
+//        out.println("Student name "+ student_name);
         resultSet.close();
         preparedStatement.close();
         //new sql to add all fields to enrollment table
@@ -141,14 +142,28 @@ public class MySQLdb {
         preparedStatement2.close();
         return result;
     }
-
+    public List<String> fetchTeamTypes() throws SQLException {
+        String qGetTypes = null;
+        List<String> list = new ArrayList<>();
+        qGetTypes = "SELECT distinct team_type FROM teams";
+        PreparedStatement preparedStatement = connection.prepareStatement(qGetTypes);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while(resultSet.next()) {
+            String team_type = resultSet.getString("team_type");
+            list.add(team_type);
+        }
+        resultSet.close();
+        preparedStatement.close();
+        return list;
+    }
     public List<TeamsModel> fetchTeams(String t_type) throws SQLException {
         String qGetTeams = null;
         List<TeamsModel> list = new ArrayList<>();
-        if(t_type == "all") {
-            qGetTeams = "SELECT team_name, team_type FROM teams";
+        if(Objects.equals(t_type, "all")) {
+//            out.println("inside all statement");
+            qGetTeams = "SELECT distinct team_name, team_type FROM teams";
         } else {
-            qGetTeams = "SELECT team_name, team_type FROM teams WHERE class_level = '"+t_type+"'";
+            qGetTeams = "SELECT distinct team_name, team_type FROM teams WHERE team_type = '"+t_type+"'";
         }
         PreparedStatement preparedStatement = connection.prepareStatement(qGetTeams);
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -162,6 +177,48 @@ public class MySQLdb {
         resultSet.close();
         preparedStatement.close();
         return list;
+    }
+    public boolean addClasses(String cdate, String ctime, String teacher, String clevel) throws SQLException {
+        boolean result = false;
+        List<String> list = new ArrayList<>();
+        String qDoAddClass = "INSERT INTO lessons (class_date, class_time, instructor, level) VALUES(?, ?, ?, ?)";
+        //find student name to add to enrollment
+        PreparedStatement preparedStatement = connection.prepareStatement(qDoAddClass);
+        preparedStatement.setString(1,cdate);
+        preparedStatement.setString(2, ctime);
+        preparedStatement.setString(3, teacher);
+        preparedStatement.setString(4, clevel);
+        int rows_update = preparedStatement.executeUpdate();
+        if(rows_update > 0) {
+            result = true;
+        }
+        preparedStatement.close();
+        return result;
+    }
+    public boolean addTeams(String tname, String member1, String member2, String ttype) throws SQLException {
+        boolean result = false;
+        List<String> list = new ArrayList<>();
+        String qDoAddClass = "INSERT INTO teams (team_name, member_name, team_type) VALUES(?, ?, ?)";
+        //have to conduct two inserts, one for each memeber
+        PreparedStatement preparedStatement = connection.prepareStatement(qDoAddClass);
+        preparedStatement.setString(1,tname);
+        preparedStatement.setString(2, member1);
+        preparedStatement.setString(3, ttype);
+        int rows_update = preparedStatement.executeUpdate();
+        preparedStatement.close();
+        if(rows_update > 0) {
+            PreparedStatement preparedStatement2 = connection.prepareStatement(qDoAddClass);
+            preparedStatement2.setString(1,tname);
+            preparedStatement2.setString(2, member2);
+            preparedStatement2.setString(3, ttype);
+            int rows_update2 = preparedStatement2.executeUpdate();
+            if (rows_update2 > 0) {
+                result = true;
+            }
+            else result = false;
+            preparedStatement2.close();
+        }
+        return result;
     }
     public List<String> fetchTeamMembers(String t_name) throws SQLException {
         String qGetTeamMembers = null;

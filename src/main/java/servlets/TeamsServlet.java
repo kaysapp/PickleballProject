@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
+import static java.lang.System.out;
+
 @WebServlet(name = "TeamsServlet", value = "/TeamsServlet")
 public class TeamsServlet extends HttpServlet {
     @Override
@@ -19,15 +21,21 @@ public class TeamsServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String teamtype="all";
+        String ttype = request.getParameter("ttype");
         MySQLdb db = MySQLdb.getInstance();
         try {
-            List<TeamsModel> teamsModelList = db.fetchTeams(teamtype);
+            List<String> teamtypes = db.fetchTeamTypes();
+            request.setAttribute("list_of_types", teamtypes);
+
+            List<TeamsModel> teamsModelList = db.fetchTeams(ttype);
             request.setAttribute("list_of_teams", teamsModelList);
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("teams.jsp");
+        requestDispatcher.forward(request, response);
     }
 }
 

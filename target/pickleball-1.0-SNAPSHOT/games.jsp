@@ -93,13 +93,13 @@
             request.setAttribute("list", list);
                 //stage 3 here
     %>
-        <table>
+        <table style="width:70%; margin-left: auto; margin-right: auto; border: 1px; border-collapse: collapse;">
             <tr>
-                <th>Date</th>
-                <th>Location</th>
-                <th>Court</th>
-                <th>Team1</th>
-                <th>Team2</th>
+                <th style="text-align:left; width:15%;">Date</th>
+                <th style="text-align:left; width:25%;">Location</th>
+                <th style="text-align:left; width:10%;">Court</th>
+                <th style="text-align:left; width:25%;">Team1</th>
+                <th style="text-align:left; width:25%;">Team2</th>
             </tr>
 <%--NEED HELP WITH THIS VARIABLE REFERENCE--%>
   <%          for (int i = 0; i < length; i++) { %>
@@ -116,8 +116,9 @@
 
         }
     %>
-
-
 </div>
 </body>
+<footer>
+    <c:import url="/includes/pfooter.html" />
+</footer>
 </html>
