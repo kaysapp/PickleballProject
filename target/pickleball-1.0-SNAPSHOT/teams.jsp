@@ -44,4 +44,7 @@
     </c:forEach>
 </table>
 </body>
+<footer>
+    <c:import url="/includes/pfooter.html" />
+</footer>
 </html>

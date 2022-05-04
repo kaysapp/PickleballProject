@@ -79,9 +79,9 @@ public class MySQLdb {
         String qGetClass = null;
         List<ClassModel> list = new ArrayList<>();
         if(Objects.equals(c_level, "all")) {
-            qGetClass = "SELECT * FROM lessons WHERE class_date >= CURRENT_DATE ";
+            qGetClass = "SELECT * FROM lessons WHERE class_date >= CURRENT_DATE order by class_date";
         } else {
-            qGetClass = "SELECT * FROM lessons WHERE class_date >= CURRENT_DATE AND level = '"+c_level+"'";
+            qGetClass = "SELECT * FROM lessons WHERE class_date >= CURRENT_DATE AND level = '"+c_level+"' order by class_date";
         }
         PreparedStatement preparedStatement = connection.prepareStatement(qGetClass);
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -238,5 +238,6 @@ public class MySQLdb {
         preparedStatement.close();
         return list;
     }
+
 
 }

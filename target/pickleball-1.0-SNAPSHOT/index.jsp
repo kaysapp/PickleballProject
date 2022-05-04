@@ -33,28 +33,29 @@
     <nav class="tm-main-nav">
         <ul id="inline-popups">
             <li class="tm-nav-item">
-                <a href="aboutus.jsp" class="tm-nav-link">
+                <a href="learn.jsp" class="tm-nav-link">
                     About Us
-                    <i>insert picture here</i>
+                    <i><img src="${pageContext.request.contextPath}/includes/images/play.png" width="50" height="50"
+                            style="vertical-align:middle;"></i>
                 </a>
             </li>
             <li class="tm-nav-item">
-                <a href="learn.jsp" class="tm-nav-link">
+                <a href="classes.jsp" class="tm-nav-link">
                     Learn to Play
-                    <i>insert picture here</i>
-                </a>
+                    <i><img src="${pageContext.request.contextPath}/includes/images/play.png" width="50" height="50"
+                            style="vertical-align:middle;"></i></a>
             </li>
             <li class="tm-nav-item">
                 <a href="teams.jsp" class="tm-nav-link" >
                     Teams
-                    <i>insert picture here</i>
-                </a>
+                    <i><img src="${pageContext.request.contextPath}/includes/images/trophy.png" width="50" height="50"
+                            style="vertical-align:middle;"></i></a>
             </li>
             <li class="tm-nav-item">
                 <a href="index.jsp" class="tm-nav-link">
                     Match Schedule
-                    <i class=>insert picture here</i>
-                </a>
+                    <i><img src="${pageContext.request.contextPath}/includes/images/schedule.png" width="50" height="50"
+                            style="vertical-align:middle;"></i></a>
             </li>
 
         </ul>

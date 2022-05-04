@@ -11,6 +11,7 @@
 <%@ page import="org.w3c.dom.Node" %>
 <%@ page import="models.MatchModel" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/includes/pheader.html" %>
 <html>
 <head>

@@ -9,6 +9,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="models.InstructorModel" %>
 <%@ page import="models.TeamsModel" %>
+
 <%--
   Created by IntelliJ IDEA.
   User: kenis
@@ -91,31 +92,65 @@
         skillsnodes = teachers.getElementsByTagName("skill_level");
         teachesnodes = teachers.getElementsByTagName("teaches_levels");
 
+        int length = instructorsnodes.getLength();
+        String picname = null;
 
-        for (int i = 0; i < instructorsnodes.getLength(); i++) {
+%>
+        <table>
+    <%
+        for (int i = 0; i < length; i++) {
         instructors.add(instructorsnodes.item(i).getFirstChild().getNodeValue());
         profiles.add(profilesnodes.item(i).getFirstChild().getNodeValue());
         skills.add(skillsnodes.item(i).getFirstChild().getNodeValue());
         teaches.add(teachesnodes.item(i).getFirstChild().getNodeValue());
-//    InstructorModel instructorModel = new InstructorModel(instructors.get(i), profiles.get(i), skills.get(i), teaches.get(i));
-//    instlist.add(instructorModel);
+
+        switch (i)
+        {
+            case 0:
+                picname = "jessica.jpg";
+                break;
+            case 1:
+                picname = "luke.jpg";
+                break;
+            case 2:
+                picname = "martin.jpg";
+                break;
+            default:
+                picname = "pball.png";
+        }
+            request.setAttribute("picname",picname);
             //stage 3 here
       %>
-        <h3 style="color: blue">  <%= instructors.get(i) %> </h3>
-        <strong>About: </strong> <%= profiles.get(i) %><br/>
+        <tr>
+            <td rowspan="4">
+                <img src="${pageContext.request.contextPath}/includes/images/${picname}" width="100" height="100"
+                     style="vertical-align:middle;">
+            </td>
+            <td>
+                <strong><%= instructors.get(i) %></strong>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <strong>About: </strong> <%= profiles.get(i) %><br/>
+            </td>
+        </tr>
+        <tr>
+            <td>
         <strong>Personal Skill Level: </strong> <%= skills.get(i) %><br/>
+            </td>
+        </tr>
+        <tr>
+            <td>
         <strong>Teaches level(s): </strong><%= teaches.get(i) %><br/>
-
+            </td>
+        </tr>
         <%
         }
-    }
+        %>
+        </table>
+  <%  }
   %>
-<%--    <c:forEach var="each_instructor" items="${instlist}">
-      <h3>${each_instructor.Name}</h3><br/>
-       ${each_instructor.getProfile()}<br/>
-       ${each_instructor.getSkill_level()}<br/>
-       ${each_instructor.getTeaches_levels()}<br/><br/>
-    </c:forEach>--%>
 
 </div>
 

@@ -16,8 +16,8 @@
         if(session.getAttribute("user") != null) {
             UserModel user = (UserModel) session.getAttribute("user");
             %>
-            <p>Hello, <%= user.getName() %></p>
-            <p> <a href="LogoutServlet">Logout</a> </p>
+            <p>Hello, <%= user.getName() %><br/>
+             <a href="LogoutServlet">Logout</a> </p>
 <br/>
 <br/>
 <br/>
