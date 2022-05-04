@@ -9,6 +9,8 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="models.InstructorModel" %>
 <%@ page import="models.TeamsModel" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 
 <%--
   Created by IntelliJ IDEA.
@@ -159,4 +161,7 @@
 </div>
 
 </body>
+<footer>
+    <c:import url="/includes/pfooter.html" />
+</footer>
 </html>

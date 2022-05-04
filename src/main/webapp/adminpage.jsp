@@ -57,7 +57,7 @@
                 </div>
             <% }
             else {
-                RequestDispatcher requestDispatcher = request.getRequestDispatcher("adminpage.jsp");
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
                 request.setAttribute("error", "You must be admin to continue.");
                 requestDispatcher.forward(request, response);
             }
